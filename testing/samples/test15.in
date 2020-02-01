@@ -1,0 +1,12 @@
+I tester.inc
++ test.txt test.txt
+> add test.txt
+<<<
+> commit "first version of test.txt"
+<<<
++ test.txt nottest.txt
+> add test.txt
+<<<
+> commit "second version of test.txt"
+<<<
+

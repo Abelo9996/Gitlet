@@ -1,0 +1,27 @@
+I tester2.inc
++ test3.txt test.txt
+> add test3.txt
+<<<
+> commit "Add test3"
+<<<
+> log
+${COMMIT_LOG}
+${COMMIT_LOG}
+${COMMIT_LOG}
+<<<*
+D L1 "${1}"
+D L2 "${2}"
+> log
+===
+${COMMIT_HEAD}
+Add test3
+
+===
+${COMMIT_HEAD}${ARBLINES}
+<<<*
+D ID "${2}"
+> reset ${ID}
+<<<
+> global-log
+${ARBLINES}${L1}?${ARBLINES}
+<<<*

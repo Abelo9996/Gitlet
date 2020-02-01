@@ -1,0 +1,18 @@
+I tester2.inc
+> rm text.txt
+<<<
+* text.txt
+> status
+=== Branches ===
+*master
+
+=== Staged Files ===
+
+=== Removed Files ===
+text.txt
+
+=== Modifications Not Staged For Commit ===
+
+=== Untracked Files ===
+
+<<<

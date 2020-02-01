@@ -1,0 +1,16 @@
+I basicaddcommit.inc
+> find "Added rooney"
+${HASH}
+<<<*
+> find "M"
+Found no commit with that message.
+<<<
++ text5.txt rooney.txt
+> add text5.txt
+<<<
+> commit "Added rooney"
+<<<
+> find "Added rooney"
+${HASH}
+${HASH}
+<<<*

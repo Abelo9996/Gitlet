@@ -1,0 +1,41 @@
+I tester2.inc
+> branch br
+<<<
++ text3.txt test2.txt
+> add text3.txt
+<<<
+> rm text2.txt
+<<<
+> commit "Add text3.txt and remove text2.txt"
+<<<
+> checkout br
+<<<
+> merge br
+Cannot merge a branch with itself.
+<<<
+> rm text.txt
+<<<
++ text4.txt test3.txt
+> add text4.txt
+<<<
+> commit "Add text4.txt and remove text.txt"
+<<<
+> checkout master
+<<<
+> merge invalidbranch
+A branch with that name does not exist.
+<<<
++ text4.txt test.txt
+> merge br
+There is an untracked file in the way; delete it or add it first.
+<<<
+- text4.txt
++ text4.txt test.txt
+> add text4.txt
+<<<
+> merge br
+You have uncommitted changes.
+<<<
+> rm text4.txt
+<<<
+- text4.txt

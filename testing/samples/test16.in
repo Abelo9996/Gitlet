@@ -1,0 +1,34 @@
+I tester2.inc
+> branch br
+<<<
++ text3.txt test2.txt
+> add text3.txt
+<<<
+> rm text2.txt
+<<<
+> commit "Add text3.txt and remove text2.txt"
+<<<
+> checkout br
+<<<
+> rm text.txt
+<<<
++ text4.txt test3.txt
+> add text4.txt
+<<<
+> commit "Add text4.txt and remove text.txt"
+<<<
+> checkout master
+<<<
+> merge br
+<<<
+* text.txt
+* text2.txt
+= text3.txt test2.txt
+= text4.txt test3.txt
+> log
+===
+${COMMIT_HEAD}
+Merged br into master\.
+
+${ARBLINES}
+<<<*

@@ -1,0 +1,7 @@
+I tester.inc
++ text.txt test.txt
+> add text.txt
+<<<
+>commit ""
+Please enter a commit message.
+<<<

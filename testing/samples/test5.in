@@ -1,0 +1,5 @@
+I basicaddcommit.inc
+> rm text.txt
+<<<
+> commit "Removed text"
+<<<

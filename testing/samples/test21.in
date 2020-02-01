@@ -1,0 +1,8 @@
+I tester2.inc
+> rm text.txt
+<<<
+> commit "Remove one file"
+<<<
++ text.txt nottest.txt
+> add text.txt
+<<<

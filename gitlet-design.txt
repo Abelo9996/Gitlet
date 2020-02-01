@@ -1,0 +1,215 @@
+Gitlet Design Document
+----------------------
+
+Gitlet Design Doc by Abel Yagubyan
+
+------ Classes and Data Structures ------
+
+*** Repository File titled as "Dir.java" ***
+
+public class Dir implements Serializable {
+
+    /** Our current file. */
+    private File curDir;
+    /** Our branches. */
+    private TreeMap<String, String> _treebr;
+    /** Our cache. */
+    private Ourcommit ourcache;
+    /** Our latest commit. */
+    private String latestcomms;
+    /** Our object file. */
+    private File objectFolder;
+    /** Our path (absolute). */
+    private File wayabs = new File(System.getProperty("user.dir"));
+    /** Our commit list. */
+    private List<String> commitlst;
+    /** Our name of the branch. */
+    private String _currbr;
+    /** Our setup. */
+    private Image _setuploc;
+    /** Our commit to its message. */
+    private TreeMap<String, String> _commtoresp;
+    /** Our directory (for remote use). */
+    private TreeMap<String, File> _dirrem;
+
+    /** Init function. */
+    public Dir() {
+        curDir = new File(".");
+        objectFolder = Utils.join(curDir, ".gitlet");
+        _dirrem = new TreeMap<String, File>();
+        _commtoresp = new TreeMap<String, String>();
+        commitlst = new ArrayList<String>();
+        ourcache = new Ourcommit();
+        _treebr = new TreeMap<String, String>();
+        latestcomms = ourcache.hashRet();
+        _currbr = "master";
+        latecomm();
+        _setuploc = new Image(ourcache);
+    }
+}
+
+*** Our Commits File titled as "Ourcommit.java" ***
+
+/**
+ * Handles our given commits.
+ *  @author Abel Yagubyan */
+
+public class Ourcommit implements Serializable {
+    /** Initializes the given commit. */
+    public Ourcommit() {
+        _ourlst = new HashMap<String, String>();
+        _response = "initial commit";
+        _timecom = ZonedDateTime.ofInstant(
+                Instant.EPOCH, java.time.ZoneId.systemDefault());
+
+        _hashp = "";
+        lochash();
+    }
+    /** Returns our parent. */
+    public String parentret() {
+        return _hashp;
+    }
+
+
+*** Our Blobs File titled as "Image.java" ***
+
+public class Image implements Serializable {
+    /** Creating the image using the commit that I received.
+     * @param sub */
+    public Image(Ourcommit sub) {
+        _image = new HashMap<String, String>(sub.lstret());
+        _ourlst = new HashMap<String, String>(sub.lstret());
+    }
+
+    /** Adds the filename with our given hash.
+     * @param filename given filename
+     * @param hash given hash*/
+    public void addfilename(String filename, String hash) {
+        _ourlst.put(filename, hash);
+    }
+
+    /** Checks whether the file has been checked or not.
+     * @return Our given file.
+     * @param  ourfile .*/
+    public String checked(String ourfile) {
+        if (_ourlst.containsKey(ourfile)) {
+            return _ourlst.get(ourfile);
+        } else {
+            return "";
+        }
+
+    }
+
+ ****
+*** Our Commands used in Main.java***
+    private static void fetchrepo(String... args) {}
+    private static void statusrepo(String... args) {}
+    private static void commitrepo(String... args) {}
+    private static void globallogrepo(String... args) {}
+    private static void reremoterepo(String... args) {}
+    private static void resetrepo(String... args) {    }
+    private static void branchrepo(String... args) { }
+    private static void checkoutrepo(String... args) {}
+    private static void mergerepo(String... args) { }
+    private static void addremoterepo(String... args) {    }
+    private static void addrepo(String... args) {    }
+    private static void initrepo(String... args) {    }
+    private static void pushrepo(String... args) {}
+    private static void pullrepo(String... args) { }
+    private static void rmrepo(String... args) { }
+    private static void logrepo(String... args) {   }
+    private static void rmbranchrepo(String... args) {}
+    private static void findrepo(String... args) {}
+    /** Our working directory. */
+    private static File directorywork;
+    /** Our repository. */
+    private static Dir reposm;
+    /** Our object directory. */
+    private static File directoryobj;
+
+
+# Algorithms
+
+*** Our Blobs (aka Image.java) ***
+- `contentReceive()`: Receives the content of our blobs.
+- `hashCode()`: uses our Objects.hash(name, content) function to create a hash.
+
+** Idea of trees in our code **
+- String[] pointourhash: It will store/record all of the hashes that the data it takes.
+
+For instance:
+
+I contain a 'README' file and our repository of 'gitrepo'.
+
+> README
+> gitrepo/
+> Testing.java
+
+
+I contain two trees: aka one for the gitrepo and for the root directory.
+
+**tree 1234567…** 
+
+| Type | Hash      | Name   |
+| ---- | --------- | ------ |
+| blob | ae902ss12… | README |
+| tree | 123ab456… | gitrepo   |
+
+**tree 123ab456…** 
+
+| Type | Hash     | Name            |
+| ---- | -------- | --------------- |
+| blob | abc123def | Testing.java |
+
+Due to the fact that it has a child node from our parent node, I can just recurse through our tree object to get our entire working directory.
+   ** For extra information **
+- Store our message, the tag to the commit, the date, and our pointer.
+
+** init **
+- initialize everything.
+
+** File Checkout **
+- `checkoutrepo()`: Checkout our file to the head pointer if the commit id is null, other wise return a error if the head pointer doesn't exist (or do as told if exists and not null).
+
+*** Our commits (aka Ourcommits.java) ***
+- `hashCode()`: uses our Objects.hash(name, content) function to create a hash.
+
+** Branch **
+- Make a reference object to the commit, then allow our HEAD pointer point towards the latest branch.
+
+** commit **
+-  `commitrepo()`: Returns an error message if nothing done to commit; Otherwise then create a new commit object with id, most recent blobs, date/time, commit, and commit message.
+
+** log **
+- Prints the current commit as specified in the project spec. 
+
+** Status **
+- `statusrepo()`: Checks the repository to get the latest branch and print and get all the files in the staging area and the branches and then print.
+
+** add **
+- Uses hashcode to put in the staging area.
+
+** Checkout Branch **
+- checks out the branch after searching for it
+
+# Persistence
+
+** Our local repository **
+
+Gitlet will take a snapshot every time our commit is taken. The other files' hash will not change if there are minor changes, however, Gitlet will only take one copy of the files with the same content and let our new id of the commit point to the last one.
+
+** Our staging area **
+
+Due to the fact that every commit has a unique hash code, gitlet will be available to save the the entire hash in our .gitlet/.index file. Our index is a large and singular binary file that lists all of the files in the current branch with their hash, file names and time stamps.
+
+** Our work directory **
+
+Due to the fact that there is a parent for every commit, our gitlet project can utilize a single commit to build up our entire working directory. It only needs a single commit for a branch, and when the users open gitlet, the head will point to the Id of the commit.
+
+
+** Commit ** 
+Gitlet will provide the hash of the commit whenever a commit is created by a user. Gitlet may use a partial hash to represent an entire hash if need be. If gitlet can't identify which hash it could represent (a given partial hash), it will display all of the commits that begin with that partial hash, or just the path not in our working tree.
+
+** Branching/Log **
+
+I will be using a tree as our data structure, however when importing our log command, it will take theta(N) considering the the length of the commits from our current to the initial one as N. Checking out a branch will take the same amount of time for N is the number of the total branches while branches only need constant amount of time.

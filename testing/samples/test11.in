@@ -1,0 +1,19 @@
+I tester2.inc
+D DATE1 "Date: \w\w\w \w\w\w \d+ \d\d:\d\d:\d\d \d\d\d\d"
+D COMMIT_LOG "(===[ ]*\ncommit [a-f0-9]+[ ]*\n(?:Merge:\s+[0-9a-f]{7}\s+[0-9a-f]{7}[ ]*\n)?${DATE1}) [-+](\d\d\d\d[ ]*\n(?:.|\n)*?(?=\Z|\n===))"
++ test.txt test.txt
+> add test.txt
+<<<
+> commit "Add test"
+<<<
+> log
+${COMMIT_LOG}
+${COMMIT_LOG}
+${COMMIT_LOG}
+<<<*
+D L1 "${1} [-+]${2}"
+> global-log
+${ARBLINES}${L1}?${ARBLINES}
+<<<*
+
+

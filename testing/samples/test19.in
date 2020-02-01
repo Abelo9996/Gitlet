@@ -1,0 +1,22 @@
+I tester2.inc
+> branch Z1
+<<<
++ text3.txt test2.txt
+> add text3.txt
+<<<
+> commit "Add text3.txt"
+<<<
+> branch Z2
+<<<
+> rm text.txt
+<<<
+> commit "remove text.txt"
+<<<
+> merge Z1
+Given branch is an ancestor of the current branch.
+<<<
+> checkout Z2
+<<<
+> merge master
+Current branch fast-forwarded.
+<<<

@@ -1,0 +1,21 @@
+I tester2.inc
+> branch brhelp
+<<<
++ text3.txt test2.txt
+> add text3.txt
+<<<
+> rm text2.txt
+<<<
++ text.txt test2.txt
+> add text.txt
+<<<
+> commit "Add text3.txt, remove text2.txt, and change text.txt"
+<<<
+> checkout brhelp
+<<<
++ text.txt nottest.txt
+> add text.txt
+<<<
++ text4.txt test3.txt
+> add text4.txt
+<<<
